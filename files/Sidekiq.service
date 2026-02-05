@@ -1,0 +1,19 @@
+[Unit]
+Description=Sidekiq for Bank Rails App
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/var/www/apps/banks/current
+Environment=RAILS_ENV=production
+Environment=ENV_PATH=contact
+ExecStart=/bin/bash -lc 'bundle exec sidekiq -e production -c 5'
+ExecStop=/bin/kill -TERM $MAINPID
+Restart=alway
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
