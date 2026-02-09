@@ -39,7 +39,8 @@ resource "aws_instance" "ami_builder" {
         "echo 'export RAILS_ENV=production' >> ~/.bashrc",
         "echo 'export ENV_PATH=contact' >> ~/.bashrc",
 
-        #Sidekiq setup
+        #Sidekiq env
+        "sudo tee /etc/sidekiq.env <<EOF\nRAILS_ENV=production\nENV_PATH=contact\nEOF"
 
     ]
     connection {
